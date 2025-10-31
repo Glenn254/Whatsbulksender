@@ -1,59 +1,91 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SMM Panel</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>WhatsApp Bulk Message Sender</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <h1>💎 Glenn SMM Panel</h1>
-  </header>
+  <main class="app">
+    <header class="header">
+      <h1>WhatsApp Bulk Message Sender</h1>
+      <p class="subtitle">Automatically send/forward message on WhatsApp to All</p>
+    </header>
 
-  <section class="dashboard">
-    <div class="card">
-      <h3>Total Orders</h3>
-      <p id="ordersCount">0</p>
-    </div>
-    <div class="card">
-      <h3>Completed</h3>
-      <p id="completedCount">0</p>
-    </div>
-    <div class="card">
-      <h3>Pending</h3>
-      <p id="pendingCount">0</p>
-    </div>
-  </section>
+    <section class="card">
+      <!-- Upload / contacts -->
+      <label class="field-label">Uploaded VCF file with contacts</label>
+      <div class="upload-row">
+        <div id="contacts-box" class="contacts-box">No file uploaded</div>
+        <div class="upload-controls">
+          <input id="vcfInput" type="file" accept=".vcf" hidden />
+          <button id="uploadBtn" class="btn">Upload VCF file</button>
+          <div id="contactsCount" class="muted">Contacts: 0</div>
+        </div>
+      </div>
 
-  <section class="new-order">
-    <h2>Place New Order</h2>
-    <form id="orderForm">
-      <input type="text" id="username" placeholder="Username" required />
-      <input type="number" id="quantity" placeholder="Quantity" required />
-      <select id="service">
-        <option value="followers">Followers</option>
-        <option value="likes">Likes</option>
-        <option value="views">Views</option>
-      </select>
-      <button type="submit">Submit</button>
-    </form>
-  </section>
+      <!-- Message -->
+      <label class="field-label">Enter message</label>
+      <textarea id="message" placeholder="Type your message..."></textarea>
 
-  <section class="orders-list">
-    <h2>Recent Orders</h2>
-    <table id="ordersTable">
-      <thead>
-        <tr>
-          <th>User</th>
-          <th>Service</th>
-          <th>Quantity</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </section>
+      <!-- Delay -->
+      <div class="row two-cols">
+        <div>
+          <label class="field-label">Delay between messages (ms)</label>
+          <input id="delayInput" type="number" min="0" value="500" />
+        </div>
+
+        <div>
+          <label class="field-label">Send by</label>
+          <div class="radio-row">
+            <label><input type="radio" name="sendBy" value="normal" checked /> WhatsApp</label>
+            <label><input type="radio" name="sendBy" value="business" /> WhatsApp Business</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Antiban toggle -->
+      <div class="row space-between">
+        <div class="antiban">
+          <label>Antiban</label>
+          <label class="switch">
+            <input id="antibanToggle" type="checkbox" />
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="controls-small">
+          <button id="sendBtn" class="btn primary">Send message</button>
+          <button id="stopBtn" class="btn danger" disabled>Stop</button>
+        </div>
+      </div>
+
+      <!-- Progress + counters -->
+      <div class="progress-wrap">
+        <div class="progress-bar" id="progressBar"><span id="progressFill" style="width:0%"></span></div>
+        <div class="progress-labels">
+          <div>Progress: <span id="progressPct">0%</span></div>
+          <div id="timerLabel">00:00</div>
+        </div>
+      </div>
+
+      <div class="row counters">
+        <div class="stat">
+          <div class="stat-title">Successful</div>
+          <div id="successfulCount" class="stat-value">0</div>
+        </div>
+        <div class="stat">
+          <div class="stat-title">Delayed</div>
+          <div id="delayedCount" class="stat-value">0</div>
+        </div>
+      </div>
+
+      <div class="muted small">Max simulated successful contacts cap: 14,000</div>
+    </section>
+
+    <footer class="footer muted">Created by Tech Glenn — keep design & colors</footer>
+  </main>
 
   <script src="script.js"></script>
 </body>
